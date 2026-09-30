@@ -1,0 +1,56 @@
+name: Build & Deploy to Hetzner
+
+on:
+  push:
+    branches: [ master, main ]
+  workflow_dispatch:
+
+jobs:
+  verify-build:
+    name: Verify C++23 Build
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install Toolchain (Clang, Ninja, CMake)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang ninja-build cmake
+
+      - name: Configure CMake (Fetches twf & Glaze)
+        run: |
+          cmake -B build -G Ninja -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang -DCMAKE_BUILD_TYPE=Release
+
+      - name: Compile Native Server
+        run: |
+          cmake --build build --target my_website
+
+  deploy:
+    name: Deploy to Production Server
+    needs: verify-build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
+    steps:
+      - name: Deploy via SSH to Hetzner VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            set -e
+            echo "?? Pulling latest changes into /var/www/personal_website..."
+            cd /var/www/personal_website
+            git fetch origin master
+            git reset --hard origin/master
+
+            echo "?? Rebuilding C++23 server binary..."
+            cmake -B build -G Ninja -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang -DCMAKE_BUILD_TYPE=Release
+            cmake --build build --target my_website
+
+            echo "?? Restarting twf-website systemd service..."
+            systemctl restart twf-website
+            systemctl is-active twf-website
+
+            echo "? Deployment successful! semdin.com updated."
