@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mehmet - Systems Architect & Full-Stack C++ Engineer</title>
+    <meta name="description" content="Personal engineering website and portfolio powered by twf (The Web Framework) built with modern C++23 and WebAssembly.">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">mehmet.dev</div>
+            <div class="tech-badge">Powered by twf &bull; C++23</div>
+        </header>
+
+        <section class="hero">
+            <h1>Building ultra-fast systems & modern web engines.</h1>
+            <p>
+                Full-stack software engineer and systems architect specializing in high-throughput C++, 
+                zero-copy networking, low-latency architectures, and WebAssembly in the browser.
+            </p>
+        </section>
+
+        <!-- WebAssembly Interactive C++ Engine -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Interactive C++ Engine (Wasm)</h2>
+                <div class="section-line"></div>
+            </div>
+            <p style="color:var(--text-secondary); font-size:0.9rem; margin-bottom:1rem;">
+                The terminal widget below is written in <b>C++23</b> and runs compiled native machine bytecode inside your browser via WebAssembly:
+            </p>
+            <div id="terminal-mount-point">
+                <div style="color:#64748b; font-family:monospace; padding:1rem; background:#05070d; border-radius:8px;">
+                    Loading C++ WebAssembly runtime...
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Projects -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Featured Projects</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="projects-grid" id="projects-container">
+                <div class="card">
+                    <div class="card-title">twf (The Web Framework)</div>
+                    <div class="card-desc">A full-stack, zero-copy modern C++23 framework supporting both native backend services and WebAssembly reactive frontends.</div>
+                    <div class="card-tags">
+                        <span class="tag">C++23</span>
+                        <span class="tag">WebAssembly</span>
+                        <span class="tag">Glaze</span>
+                        <span class="tag">Networking</span>
+                    </div>
+                    <a href="https://github.com" class="card-link" target="_blank">View on GitHub &rarr;</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Low-Latency Matching Engine</div>
+                    <div class="card-desc">Sub-microsecond limit order book with lock-free ring buffers, SIMD execution, and kernel-bypass UDP feeds.</div>
+                    <div class="card-tags">
+                        <span class="tag">C++20</span>
+                        <span class="tag">Lock-Free</span>
+                        <span class="tag">Low-Latency</span>
+                    </div>
+                    <a href="https://github.com" class="card-link" target="_blank">View on GitHub &rarr;</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Distributed Key-Value Store</div>
+                    <div class="card-desc">Raft-consensus distributed storage engine with LSM-tree storage, zero-allocation serialization, and async RPC.</div>
+                    <div class="card-tags">
+                        <span class="tag">C++23</span>
+                        <span class="tag">Raft</span>
+                        <span class="tag">Distributed Systems</span>
+                    </div>
+                    <a href="https://github.com" class="card-link" target="_blank">View on GitHub &rarr;</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Skills -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Technical Competencies</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <div class="skill-cat-name">Languages</div>
+                    <span class="skill-pill">C++20 / C++23</span>
+                    <span class="skill-pill">C</span>
+                    <span class="skill-pill">Python</span>
+                    <span class="skill-pill">JavaScript / TS</span>
+                </div>
+                <div class="skill-category">
+                    <div class="skill-cat-name">Systems & Web</div>
+                    <span class="skill-pill">WebAssembly (Wasm)</span>
+                    <span class="skill-pill">Linux Sockets / Epoll</span>
+                    <span class="skill-pill">CMake / Ninja</span>
+                    <span class="skill-pill">Docker / Multi-Stage</span>
+                </div>
+                <div class="skill-category">
+                    <div class="skill-cat-name">Architecture</div>
+                    <span class="skill-pill">Zero-Copy I/O</span>
+                    <span class="skill-pill">Lock-Free Concurrency</span>
+                    <span class="skill-pill">Memory Optimization</span>
+                    <span class="skill-pill">REST & RPC APIs</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Get In Touch</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="contact-form">
+                <form id="contactForm" onsubmit="handleContact(event)">
+                    <div class="form-group">
+                        <label class="form-label">Name</label>
+                        <input type="text" class="form-input" id="cName" required placeholder="Your Name">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-input" id="cEmail" required placeholder="your.email@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Message</label>
+                        <textarea class="form-textarea" rows="4" id="cMsg" required placeholder="Write your message..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn" id="submitBtn">Send Message to C++ Server</button>
+                    <div id="contactStatus" style="margin-top:1rem; font-size:0.85rem;"></div>
+                </form>
+            </div>
+        </section>
+
+        <footer>
+            <p>Built with <b>twf</b> (The Web Framework) &bull; 100% Modern C++23 Backend &amp; WebAssembly Frontend</p>
+            <p style="margin-top:0.5rem; font-size:0.75rem;">Memory-efficient, zero-copy, bare-metal performance.</p>
+        </footer>
+    </div>
+
+    <!-- WebAssembly Module Loader -->
+    <script src="/wasm/website_client.js"></script>
+    <script>
+        function runQuickCmd(cmd) {
+            if (window.Module && Module._execute_terminal_cmd) {
+                const len = lengthBytesUTF8(cmd) + 1;
+                const ptr = _malloc(len);
+                stringToUTF8(cmd, ptr, len);
+                Module._execute_terminal_cmd(ptr);
+                _free(ptr);
+            }
+        }
+
+        async function handleContact(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            const status = document.getElementById('contactStatus');
+            btn.disabled = true;
+            btn.innerText = 'Sending...';
+
+            const payload = {
+                name: document.getElementById('cName').value,
+                email: document.getElementById('cEmail').value,
+                message: document.getElementById('cMsg').value
+            };
+
+            try {
+                const res = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+                status.innerHTML = `<span style="color:#10b981;">&#x2714; ${data.message}</span>`;
+                document.getElementById('contactForm').reset();
+            } catch (err) {
+                status.innerHTML = `<span style="color:#ef4444;">Failed to send message: ${err.message}</span>`;
+            } finally {
+                btn.disabled = false;
+                btn.innerText = 'Send Message to C++ Server';
+            }
+        }
+    </script>
+</body>
+</html>
