@@ -2,7 +2,7 @@ name: Build & Deploy to Hetzner
 
 on:
   push:
-    branches: [ master, main ]
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -30,7 +30,7 @@ jobs:
     name: Deploy to Production Server
     needs: verify-build
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main'
     steps:
       - name: Deploy via SSH to Hetzner VPS
         uses: appleboy/ssh-action@v1.0.3
@@ -42,8 +42,8 @@ jobs:
             set -e
             echo "?? Pulling latest changes into /var/www/personal_website..."
             cd /var/www/personal_website
-            git fetch origin master
-            git reset --hard origin/master
+            git fetch origin main
+            git reset --hard origin/main
 
             echo "?? Rebuilding C++23 server binary..."
             cmake -B build -G Ninja -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang -DCMAKE_BUILD_TYPE=Release
