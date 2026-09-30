@@ -13,14 +13,14 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Install Toolchain (Clang, Ninja, CMake)
+      - name: Install Toolchain (GCC 14+, Ninja, CMake)
         run: |
           sudo apt-get update
-          sudo apt-get install -y clang ninja-build cmake
+          sudo apt-get install -y g++ ninja-build cmake
 
       - name: Configure CMake (Fetches twf & Glaze)
         run: |
-          cmake -B build -G Ninja -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang -DCMAKE_BUILD_TYPE=Release
+          cmake -B build -G Ninja -DCMAKE_CXX_COMPILER=g++ -DCMAKE_C_COMPILER=gcc -DCMAKE_BUILD_TYPE=Release
 
       - name: Compile Native Server
         run: |
